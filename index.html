@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+<audio id="bgMusic" src="music.mp3" loop></audio>
+
+<!-- PASSWORD SCREEN -->
+<div id="loginScreen" class="center">
+    <h2>Enter Secret Code 💌</h2>
+    <input type="password" id="passwordInput" placeholder="Enter Password">
+    <button onclick="checkPassword()">Unlock ❤️</button>
+    <p id="error"></p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent" class="hidden">
+
+    <h1 id="title"></h1>
+    <div class="cake">🎂</div>
+    <p id="typing"></p>
+
+    <button onclick="startRomance()">Start Our Night 💕</button>
+
+    <div class="gallery hidden" id="gallery">
+        <img src="photo1.jpg">
+        <img src="photo2.jpg">
+        <img src="photo3.jpg">
+    </div>
+
+</div>
+
+<!-- Floating Hearts -->
+<div class="hearts-container" id="hearts"></div>
+
+<!-- Fireworks -->
+<canvas id="fireworks"></canvas>
+
+<script src="script.js"></script>
+</body>
+</html>
+
