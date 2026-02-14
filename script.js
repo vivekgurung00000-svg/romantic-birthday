@@ -3,10 +3,16 @@
 // =======================
 function checkPassword() {
     const password = document.getElementById('passwordInput').value;
-    if (password === "love123") { // your secret code
+    if (password === "love123") {
         document.getElementById('loginScreen').classList.add('hidden');
         document.getElementById('mainContent').classList.remove('hidden');
-        document.getElementById('bgMusic').play();
+
+        // Play background music
+        const music = document.getElementById('bgMusic');
+        music.play().catch(() => { console.log("Autoplay blocked"); });
+
+        // Start first typing message
+        typeMessage("Happy Birthday Unisha ❤️", "typing", 100, showPhotoSection);
     } else {
         document.getElementById('error').textContent = "Incorrect! 💔 Try again.";
     }
@@ -46,24 +52,7 @@ function launchHearts() {
 }
 
 // =======================
-// SEQUENTIAL PHOTO DISPLAY
-// =======================
-const photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg"];
-let currentPhotoIndex = 0;
-
-function showNextPhoto() {
-    const display = document.getElementById('photoDisplay');
-    if (currentPhotoIndex < photos.length) {
-        display.innerHTML = `<img src="${photos[currentPhotoIndex]}" style="width:300px; border-radius:10px;">`;
-        currentPhotoIndex++;
-    } else {
-        // All photos shown, hide the button
-        document.getElementById('nextPhotoBtn').style.display = "none";
-    }
-}
-
-// =======================
-// FIREWORKS + SPARKLING FINAL MESSAGE
+// FIREWORKS
 // =======================
 function startFireworks() {
     const canvas = document.getElementById("fireworks");
@@ -99,100 +88,82 @@ function startFireworks() {
             p.x += p.vx;
             p.y += p.vy;
             p.alpha -= 0.01;
-            ctx.fillStyle = `hsla(${p.color.match(/\d+/g)[0]}, 100%, 50%, ${p.alpha})`;
+            ctx.fillStyle = `hsla(${p.color.match(/\d+/g)[0]},100%,50%,${p.alpha})`;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
             ctx.fill();
-
             if (p.alpha <= 0) particles.splice(i, 1);
         }
 
         requestAnimationFrame(animateParticles);
     }
 
-    let fireworkCount = 0;
-    const fireworkInterval = setInterval(() => {
-        createFirework();
-        fireworkCount++;
-        if (fireworkCount >= 15) {
-            clearInterval(fireworkInterval);
-            setTimeout(showBirthdayMessage, 1000);
-        }
-    }, 500);
-
+    setInterval(createFirework, 500);
     animateParticles();
+}
 
-    function showBirthdayMessage() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+// =======================
+// PHOTO SECTION (3 actual photos)
+// =======================
+const photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg"];
+let currentPhotoIndex = 0;
 
-        const message = "🎉 Happy Birthday Unisha! 🎉";
-        const quote = "💖 You are my today and all of my tomorrows 💖";
+function showPhotoSection() {
+    const section = document.getElementById('photoSection');
+    section.classList.remove('hidden');
+    showNextPhoto();
+}
 
-        let sparkles = [];
-        const textX = canvas.width / 2;
-        const textY = canvas.height / 2;
+function showNextPhoto() {
+    const display = document.getElementById('photoDisplay');
+    if (currentPhotoIndex < photos.length) {
+        const img = document.createElement('img');
+        img.src = photos[currentPhotoIndex];
+        img.style.width = "250px";
+        img.style.height = "auto";
+        img.style.borderRadius = "15px";
+        img.style.cursor = "pointer";
+        display.innerHTML = "";
+        display.appendChild(img);
 
-        ctx.font = "bold 80px Arial";
-        ctx.textAlign = "center";
+        currentPhotoIndex++;
 
-        for (let i = 0; i < 300; i++) {
-            sparkles.push({
-                x: textX + (Math.random() - 0.5) * ctx.measureText(message).width,
-                y: textY + (Math.random() - 0.5) * 80,
-                vx: (Math.random() - 0.5) * 1,
-                vy: (Math.random() - 0.5) * 1,
-                alpha: Math.random(),
-                size: Math.random() * 3 + 1,
-                color: `hsl(${Math.random() * 360}, 100%, 70%)`
-            });
-        }
-
-        function animateText() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = "#ff3399";
-            ctx.font = "bold 80px Arial";
-            ctx.fillText(message, textX, textY);
-
-            ctx.fillStyle = "#ff99cc";
-            ctx.font = "bold 40px Arial";
-            ctx.fillText(quote, textX, textY + 100);
-
-            sparkles.forEach(s => {
-                ctx.fillStyle = s.color;
-                ctx.globalAlpha = s.alpha;
-                ctx.beginPath();
-                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-                ctx.fill();
-
-                s.x += s.vx;
-                s.y += s.vy;
-                s.alpha -= 0.005;
-                if (s.alpha <= 0) s.alpha = Math.random();
-            });
-            ctx.globalAlpha = 1;
-
-            requestAnimationFrame(animateText);
-        }
-
-        animateText();
+        img.onclick = () => {
+            img.onclick = null;
+            if (currentPhotoIndex < photos.length) {
+                showNextPhoto();
+            } else {
+                // Show cake button after last photo
+                document.getElementById('cakeSection').classList.remove('hidden');
+            }
+        };
     }
 }
 
 // =======================
-// MAIN FUNCTION
+// CAKE BUTTON
 // =======================
-function startRomance() {
-    typeMessage("Happy Birthday Unisha ❤️", "typing", 100, () => {
-        // Show photo section and first photo
-        document.getElementById('photoSection').classList.remove('hidden');
-        currentPhotoIndex = 0;
-        showNextPhoto();
-        document.getElementById('nextPhotoBtn').onclick = showNextPhoto;
+document.getElementById('cakeBtn').onclick = () => {
+    document.getElementById('cakeSection').style.display = "none";
 
-        typeMessage("3 Years Completed Together 💕", "typing", 100, () => {
-            launchHearts();
-            startFireworks();
+    typeMessage("Happy Birthday Unisha! 🎉 From Vivek 💖", "typing", 100, () => {
+        launchHearts();
+        startFireworks();
+
+        // Show middle message
+        typeMessage("Only three photos of ours, 3 years completed together, and many more to...", "typing", 50, () => {
+            document.getElementById('nextSection').classList.remove('hidden');
         });
     });
 }
+
+// =======================
+// NEXT BUTTON CLICK
+// =======================
+document.getElementById('nextBtn').onclick = () => {
+    document.getElementById('nextSection').style.display = "none";
+    typeMessage("Sorry this much for today, will do more in coming years... 💕", "typing", 100);
+}
+
+// Start background fireworks immediately for effect
+startFireworks();
