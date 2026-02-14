@@ -46,39 +46,11 @@ function launchHearts() {
 }
 
 // =======================
-// PHOTO SLIDESHOW (SMOOTH FADE)
+// SHOW PHOTO BUTTON FUNCTION
 // =======================
-function showPhotosSequentially(photos, callback) {
-    const gallery = document.getElementById('gallery');
-    gallery.innerHTML = "";
-    let index = 0;
-
-    function showNext() {
-        if (index < photos.length) {
-            const img = document.createElement('img');
-            img.src = photos[index];
-            img.style.opacity = 0;
-            gallery.innerHTML = "";
-            gallery.appendChild(img);
-            gallery.classList.remove('hidden');
-
-            // fade in
-            setTimeout(() => { img.style.opacity = 1; }, 50);
-
-            // fade out after 2s
-            setTimeout(() => {
-                img.style.opacity = 0;
-                setTimeout(() => {
-                    index++;
-                    showNext();
-                }, 1000); // wait fade-out to finish
-            }, 2000); // show each photo for 2s
-        } else {
-            callback();
-        }
-    }
-
-    showNext();
+function showPhoto(filename) {
+    const display = document.getElementById('photoDisplay');
+    display.innerHTML = `<img src="${filename}">`;
 }
 
 // =======================
@@ -129,22 +101,18 @@ function startFireworks() {
         requestAnimationFrame(animateParticles);
     }
 
-    // Launch fireworks periodically
     let fireworkCount = 0;
     const fireworkInterval = setInterval(() => {
         createFirework();
         fireworkCount++;
         if (fireworkCount >= 15) {
             clearInterval(fireworkInterval);
-            setTimeout(showBirthdayMessage, 1000); // pause then final message
+            setTimeout(showBirthdayMessage, 1000);
         }
     }, 500);
 
     animateParticles();
 
-    // =======================
-    // FINAL SPARKLING MESSAGE
-    // =======================
     function showBirthdayMessage() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -203,16 +171,14 @@ function startFireworks() {
 }
 
 // =======================
-// MAIN FUNCTION WHEN BUTTON CLICKED
+// MAIN FUNCTION
 // =======================
 function startRomance() {
     typeMessage("Happy Birthday Unisha ❤️", "typing", 100, () => {
-        const photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg"];
-        showPhotosSequentially(photos, () => {
-            typeMessage("3 Years Completed Together 💕", "typing", 100, () => {
-                launchHearts();
-                startFireworks();
-            });
+        document.getElementById('photoSection').classList.remove('hidden');
+        typeMessage("3 Years Completed Together 💕", "typing", 100, () => {
+            launchHearts();
+            startFireworks();
         });
     });
 }
