@@ -1,4 +1,6 @@
+// =======================
 // PASSWORD CHECK
+// =======================
 function checkPassword() {
     const password = document.getElementById('passwordInput').value;
     if (password === "love123") { // your secret code
@@ -10,7 +12,9 @@ function checkPassword() {
     }
 }
 
+// =======================
 // TYPING EFFECT
+// =======================
 function typeMessage(message, elementId, speed = 100, callback) {
     let i = 0;
     const el = document.getElementById(elementId);
@@ -26,7 +30,9 @@ function typeMessage(message, elementId, speed = 100, callback) {
     }, speed);
 }
 
-// LAUNCH HEARTS
+// =======================
+// FLOATING HEARTS
+// =======================
 function launchHearts() {
     const container = document.getElementById('hearts');
     for (let i = 0; i < 30; i++) {
@@ -39,30 +45,45 @@ function launchHearts() {
     }
 }
 
-// PHOTO SLIDESHOW ONE BY ONE
+// =======================
+// PHOTO SLIDESHOW (SMOOTH FADE)
+// =======================
 function showPhotosSequentially(photos, callback) {
     const gallery = document.getElementById('gallery');
-    gallery.innerHTML = ""; // clear existing
+    gallery.innerHTML = "";
     let index = 0;
 
     function showNext() {
         if (index < photos.length) {
             const img = document.createElement('img');
             img.src = photos[index];
-            gallery.innerHTML = ""; // show one at a time
+            img.style.opacity = 0;
+            gallery.innerHTML = "";
             gallery.appendChild(img);
             gallery.classList.remove('hidden');
-            index++;
-            setTimeout(showNext, 2000); // show next after 2s
+
+            // fade in
+            setTimeout(() => { img.style.opacity = 1; }, 50);
+
+            // fade out after 2s
+            setTimeout(() => {
+                img.style.opacity = 0;
+                setTimeout(() => {
+                    index++;
+                    showNext();
+                }, 1000); // wait fade-out to finish
+            }, 2000); // show each photo for 2s
         } else {
-            callback(); // after all photos
+            callback();
         }
     }
 
     showNext();
 }
 
+// =======================
 // FIREWORKS + SPARKLING FINAL MESSAGE
+// =======================
 function startFireworks() {
     const canvas = document.getElementById("fireworks");
     const ctx = canvas.getContext("2d");
@@ -115,19 +136,21 @@ function startFireworks() {
         fireworkCount++;
         if (fireworkCount >= 15) {
             clearInterval(fireworkInterval);
-            setTimeout(showBirthdayMessage, 1000); // pause then message
+            setTimeout(showBirthdayMessage, 1000); // pause then final message
         }
     }, 500);
 
     animateParticles();
 
+    // =======================
+    // FINAL SPARKLING MESSAGE
+    // =======================
     function showBirthdayMessage() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         const message = "🎉 Happy Birthday Unisha! 🎉";
         const quote = "💖 You are my today and all of my tomorrows 💖";
 
-        // Sparkles
         let sparkles = [];
         const textX = canvas.width / 2;
         const textY = canvas.height / 2;
@@ -179,13 +202,13 @@ function startFireworks() {
     }
 }
 
+// =======================
 // MAIN FUNCTION WHEN BUTTON CLICKED
+// =======================
 function startRomance() {
     typeMessage("Happy Birthday Unisha ❤️", "typing", 100, () => {
-        // Show photos one by one
         const photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg"];
         showPhotosSequentially(photos, () => {
-            // After photos, show 3 years message
             typeMessage("3 Years Completed Together 💕", "typing", 100, () => {
                 launchHearts();
                 startFireworks();
