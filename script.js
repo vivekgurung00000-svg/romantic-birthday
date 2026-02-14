@@ -1,3 +1,31 @@
+<script>
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+    // Prevent automatic prompt
+    e.preventDefault();
+    deferredPrompt = e;
+
+    // Show install button
+    installBtn.style.display = "block";
+});
+
+installBtn.addEventListener("click", async () => {
+    installBtn.style.display = "none";
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const choiceResult = await deferredPrompt.userChoice;
+        if (choiceResult.outcome === "accepted") {
+            console.log("App installed");
+        } else {
+            console.log("App installation dismissed");
+        }
+        deferredPrompt = null;
+    }
+});
+</script>
+
 // =======================
 // PASSWORD CHECK
 // =======================
