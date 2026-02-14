@@ -1,0 +1,9 @@
+{
+  "name": "Romantic Birthday",
+  "short_name": "MyLove",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#660033",
+  "theme_color": "#ff4da6",
+  "icons": []
+}
