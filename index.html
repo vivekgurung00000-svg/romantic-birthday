@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For My Love ❤️</title>
 <link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -28,10 +27,15 @@
 
     <button onclick="startRomance()">Start Our Night 💕</button>
 
-    <div class="gallery hidden" id="gallery">
-        <img src="photo1.jpg">
-        <img src="photo2.jpg">
-        <img src="photo3.jpg">
+    <!-- PHOTO BUTTONS -->
+    <div id="photoSection" class="hidden">
+        <button onclick="showPhoto('photo1.jpg')">My Gorgeous Pic 🌸</button>
+        <button onclick="showPhoto('photo2.jpg')">My Beautiful Pic 🌹</button>
+        <button onclick="showPhoto('photo3.jpg')">My Angel Pic 👼</button>
+
+        <div id="photoDisplay" style="margin-top:20px;">
+            <!-- Selected photo will appear here -->
+        </div>
     </div>
 
 </div>
@@ -43,6 +47,5 @@
 <canvas id="fireworks"></canvas>
 
 <script src="script.js"></script>
-
 </body>
 </html>
