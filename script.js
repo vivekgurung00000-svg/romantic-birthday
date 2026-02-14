@@ -46,11 +46,20 @@ function launchHearts() {
 }
 
 // =======================
-// SHOW PHOTO BUTTON FUNCTION
+// SEQUENTIAL PHOTO DISPLAY
 // =======================
-function showPhoto(filename) {
+const photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg"];
+let currentPhotoIndex = 0;
+
+function showNextPhoto() {
     const display = document.getElementById('photoDisplay');
-    display.innerHTML = `<img src="${filename}">`;
+    if (currentPhotoIndex < photos.length) {
+        display.innerHTML = `<img src="${photos[currentPhotoIndex]}" style="width:300px; border-radius:10px;">`;
+        currentPhotoIndex++;
+    } else {
+        // All photos shown, hide the button
+        document.getElementById('nextPhotoBtn').style.display = "none";
+    }
 }
 
 // =======================
@@ -175,7 +184,12 @@ function startFireworks() {
 // =======================
 function startRomance() {
     typeMessage("Happy Birthday Unisha ❤️", "typing", 100, () => {
+        // Show photo section and first photo
         document.getElementById('photoSection').classList.remove('hidden');
+        currentPhotoIndex = 0;
+        showNextPhoto();
+        document.getElementById('nextPhotoBtn').onclick = showNextPhoto;
+
         typeMessage("3 Years Completed Together 💕", "typing", 100, () => {
             launchHearts();
             startFireworks();
