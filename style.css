@@ -1,6 +1,4 @@
-/* ======================= */
 /* BASIC STYLES */
-/* ======================= */
 body {
     font-family: 'Arial', sans-serif;
     background: #ffe6f0;
@@ -19,9 +17,7 @@ body {
     display: none;
 }
 
-/* ======================= */
 /* LOGIN SCREEN */
-/* ======================= */
 #loginScreen input {
     padding: 10px;
     font-size: 16px;
@@ -45,9 +41,7 @@ body {
     background-color: #ff66b3;
 }
 
-/* ======================= */
 /* MAIN CONTENT */
-/* ======================= */
 #mainContent {
     margin-top: 30px;
 }
@@ -84,28 +78,30 @@ body {
     background-color: #ff66b3;
 }
 
-/* ======================= */
-/* GALLERY - SLIDESHOW */
-/* ======================= */
-.gallery {
-    position: relative;
-    height: 300px; /* adjust as needed */
-    margin: 20px auto;
+/* PHOTO BUTTONS */
+#photoSection button {
+    margin: 10px;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background-color: #ff3399;
+    color: white;
+    cursor: pointer;
 }
 
-.gallery img {
-    width: 400px; /* adjust size */
+#photoSection button:hover {
+    background-color: #ff66b3;
+}
+
+#photoDisplay img {
+    max-width: 90%;
+    height: auto;
+    margin-top: 10px;
     border-radius: 10px;
-    opacity: 0;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: opacity 1s ease-in-out;
 }
 
-/* ======================= */
 /* HEARTS ANIMATION */
-/* ======================= */
 .hearts-container {
     position: fixed;
     top: 0;
@@ -127,9 +123,7 @@ body {
     100% { transform: translateY(-100vh); opacity: 0; }
 }
 
-/* ======================= */
 /* FIREWORKS CANVAS */
-/* ======================= */
 #fireworks {
     position: fixed;
     top: 0;
@@ -140,19 +134,14 @@ body {
     z-index: 10;
 }
 
-/* ======================= */
-/* MEDIA QUERIES FOR RESPONSIVE DESIGN */
-/* ======================= */
+/* RESPONSIVE */
 @media (max-width: 500px) {
-    .gallery img {
-        width: 90%;
-    }
-
     #typing {
         font-size: 22px;
     }
 
-    #mainContent button {
+    #mainContent button,
+    #photoSection button {
         font-size: 16px;
         padding: 10px 20px;
     }
@@ -161,8 +150,3 @@ body {
         font-size: 50px;
     }
 }
-    top: 0;
-    left: 0;
-    pointer-events: none;
-}
-
