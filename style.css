@@ -1,100 +1,166 @@
+/* ======================= */
+/* BASIC STYLES */
+/* ======================= */
 body {
+    font-family: 'Arial', sans-serif;
+    background: #ffe6f0;
+    overflow-x: hidden;
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #2b0033, #660033);
-    color: white;
+    padding: 0;
     text-align: center;
-    overflow: hidden;
 }
 
 .center {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-input {
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    margin: 10px;
-    width: 200px;
     text-align: center;
-}
-
-button {
-    padding: 10px 20px;
-    border-radius: 20px;
-    border: none;
-    background: #ff4da6;
-    color: white;
-    cursor: pointer;
-}
-
-button:active {
-    transform: scale(0.95);
+    margin-top: 50px;
 }
 
 .hidden {
     display: none;
 }
 
+/* ======================= */
+/* LOGIN SCREEN */
+/* ======================= */
+#loginScreen input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 200px;
+}
+
+#loginScreen button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-left: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #ff3399;
+    color: white;
+    cursor: pointer;
+}
+
+#loginScreen button:hover {
+    background-color: #ff66b3;
+}
+
+/* ======================= */
+/* MAIN CONTENT */
+/* ======================= */
 #mainContent {
-    padding-top: 40px;
+    margin-top: 30px;
+}
+
+#title {
+    font-size: 36px;
+    color: #ff3399;
+    margin-bottom: 10px;
 }
 
 .cake {
     font-size: 60px;
-    animation: bounce 1.5s infinite;
+    margin: 20px 0;
 }
 
-@keyframes bounce {
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-15px);}
+#typing {
+    font-size: 28px;
+    color: #ff4d94;
+    min-height: 40px;
+    margin-bottom: 20px;
 }
 
+#mainContent button {
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+    background-color: #ff3399;
+    color: white;
+    cursor: pointer;
+}
+
+#mainContent button:hover {
+    background-color: #ff66b3;
+}
+
+/* ======================= */
+/* GALLERY - SLIDESHOW */
+/* ======================= */
 .gallery {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    padding: 10px;
+    position: relative;
+    height: 300px; /* adjust as needed */
+    margin: 20px auto;
 }
 
 .gallery img {
-    width: 100%;
-    border-radius: 15px;
+    width: 400px; /* adjust size */
+    border-radius: 10px;
+    opacity: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 1s ease-in-out;
 }
 
-/* FLOATING HEARTS */
-
+/* ======================= */
+/* HEARTS ANIMATION */
+/* ======================= */
 .hearts-container {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
-    overflow: hidden;
 }
 
 .heart {
     position: absolute;
-    bottom: -20px;
-    font-size: 20px;
+    font-size: 2rem;
+    color: red;
     animation: floatUp linear infinite;
-    opacity: 0.8;
 }
 
 @keyframes floatUp {
-    0% { transform: translateY(0); opacity: 0.9; }
-    100% { transform: translateY(-110vh); opacity: 0; }
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
 }
 
-canvas {
+/* ======================= */
+/* FIREWORKS CANVAS */
+/* ======================= */
+#fireworks {
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* ======================= */
+/* MEDIA QUERIES FOR RESPONSIVE DESIGN */
+/* ======================= */
+@media (max-width: 500px) {
+    .gallery img {
+        width: 90%;
+    }
+
+    #typing {
+        font-size: 22px;
+    }
+
+    #mainContent button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+    .cake {
+        font-size: 50px;
+    }
+}
     top: 0;
     left: 0;
     pointer-events: none;
